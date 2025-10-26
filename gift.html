@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Happy Birthday To You ❤️</title>
+
+    <link rel="stylesheet" href="assets/css/gift-style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <div class="start-screen" id="startScreen">
+      <button id="playButton">Click Here ✨</button>
+    </div>
+
+    <audio id="music" loop src="assets/newmusic.mp3"></audio>
+
+    <div class="main-content-wrapper" id="mainContent" style="display: none;">
+      <div class="main-content">
+        <h1>HAPPY BIRTHDAY</h1>
+        <div class="message" id="typing"></div>
+      </div>
+      <div class="firework-container" id="fireworkContainer"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const playButton = document.getElementById("playButton");
+        const startScreen = document.getElementById("startScreen");
+        const mainContent = document.getElementById("mainContent");
+        const music = document.getElementById("music");
+        const typingDiv = document.getElementById("typing");
+
+        playButton.addEventListener("click", () => {
+          startScreen.classList.add("hidden");
+          mainContent.style.display = "block";
+          music.play().catch((err) => {
+            console.log("Trình duyệt đã chặn tự động phát nhạc:", err);
+          });
+          startAnimations();
+        });
+
+        function startAnimations() {
+          const message =
+            "Cũng là một dịp đặc biệt nhỉ, cũng có thể là một ngày khó quên cũng nên. Cũng chẳng biết nói sao, hay chúc sao cho hay. Chỉ biết, chúc tuổi mới có thể gặt hái được nhiều quả ngọt trong học tập. Tuổi mới nghe lời một xíu, bớt ăn cay đi, phải ngủ sớm nữa. Dù có khó khăn, anh vẫn sẽ ở đây, cùng em vượt qua tất cả. HAPPY BIRTHDAY";
+
+          let idx = 0;
+          function type() {
+            if (idx < message.length) {
+              typingDiv.textContent += message.charAt(idx++);
+              setTimeout(type, 50);
+            }
+          }
+
+          setTimeout(type, 1000);
+
+          const heartColors = [
+            "#ffb6c1",
+            "#ffd1dc",
+            "#ff69b4",
+            "#ffc0cb",
+            "#ff77aa",
+          ];
+
+          for (let i = 0; i < 25; i++) {
+            const heart = document.createElement("div");
+            heart.className = "floating-heart";
+            heart.textContent = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.color =
+              heartColors[Math.floor(Math.random() * heartColors.length)];
+            heart.style.animationDelay = Math.random() * 10 + "s";
+            heart.style.animationDuration = 7 + Math.random() * 8 + "s";
+            document.body.appendChild(heart);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
